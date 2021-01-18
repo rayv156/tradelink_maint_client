@@ -1,0 +1,11 @@
+.navbar {
+    background-color: black;
+    opacity: 0.8;
+    width: 100%;
+    display: flex;
+}
+
+button:focus {
+    outline: 1px dotted;
+    outline: none;
+}
