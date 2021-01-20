@@ -47,7 +47,7 @@ const Notes = () => {
     <div className="workout-container" >
     {notes.map((note, index)=> {
         return (
-            <div className="card" style={{width: 350, margin: 10, justifyContent: 'space-between', fontFamily: 'Permanent Marker, cursive', boxShadow: '5px 5px 20px gray'}}>
+            <div className="card" style={{width: 350, margin: 10, justifyContent: 'space-between', boxShadow: '5px 5px 20px gray'}}>
             <h2 className="card-header">Note #{index+1}</h2>
             <p>{note.message}</p>
       

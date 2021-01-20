@@ -1,15 +1,16 @@
 import React from 'react'
 import {GlobalCtx} from "../App"
 import "./Login.css";
+import { Redirect } from 'react-router-dom'
 
 const Login = ({ history }) => {
     const {gState, setgState} = React.useContext(GlobalCtx)
     const {url} = gState
-
     const blank = {
         username: "",
         password: ""
     }
+
     const [form, setForm] = React.useState(blank)
 
     const handleChange = (event) => {
@@ -27,22 +28,21 @@ const Login = ({ history }) => {
             body: JSON.stringify({username, password})
         })
         .then(response => response.json())
-        .then(data => {
+        .then(async data => {
             if (data.token){
-                window.localStorage.setItem("token", data.token)
-                window.localStorage.setItem("admin", data.is_admin)
-                window.localStorage.setItem("user", JSON.stringify(data.user))
+             window.localStorage.setItem("token", data.token)
+             window.localStorage.setItem("admin", data.is_admin)
+             window.localStorage.setItem("user", JSON.stringify(data.user))
             setgState({...gState, token: true, user: data.user, error: null, admin: data.is_admin})
             setForm(blank)
             alert(`You have successfully signed in.  Welcome ${data.user.username}!`)
-            data.is_admin ? history.push("/adminnotes") : history.push("/notes")
+            console.log(data.is_admin)
+            data.is_admin ? <Redirect to="/adminnotes"/> : <Redirect to="/notes"/>
             } else {
                 setgState({...gState, error: data.error})
                 setForm(blank)
-                history.push("/login")
             }
         })
-
     }
 
 

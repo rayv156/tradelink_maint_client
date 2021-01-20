@@ -8,7 +8,7 @@ const NavSignedIn = ({history}) => {
     return (
 <>
 <Navbar collapseOnSelect expand="lg" variant="dark">
-  <Navbar.Brand href="/">Workout Log</Navbar.Brand>
+  <Navbar.Brand href="/">Maintenance Log</Navbar.Brand>
       
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
