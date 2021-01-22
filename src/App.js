@@ -9,6 +9,9 @@ import NotAuthorized from './components/NotAuthorized'
 import AdminNotes from './components/AdminNotes'
 import Navigation from './components/Navigation'
 import NavSignedIn from './components/NavSignedIn'
+import Trucks from './components/Trucks'
+import Trailers from './components/Trailers'
+import Forklifts from './components/Forklifts'
 
 export const GlobalCtx = React.createContext(null)
 
@@ -54,6 +57,9 @@ function App({history}) {
         <Route path="/notes" exact component={Notes} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/adminnotes" exact component={gState.admin ? AdminNotes : NotAuthorized} />
+        <Route path="/trucks" exact component={gState.admin ? Trucks : NotAuthorized} />
+        <Route path="/trailers" exact component={gState.admin ? Trailers : NotAuthorized} />
+        <Route path="/forklifts" exact component={gState.admin ? Forklifts : NotAuthorized} />
         
       </Switch>
     </div>
