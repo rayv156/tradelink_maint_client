@@ -31,9 +31,8 @@ const Login = ({ history }) => {
         .then(async data => {
             if (data.token){
              window.localStorage.setItem("token", data.token)
-             window.localStorage.setItem("admin", data.is_admin)
-             window.localStorage.setItem("user", JSON.stringify(data.user))
-            setgState({...gState, token: true, user: data.user, error: null, admin: data.is_admin})
+             window.localStorage.setItem("user", JSON.stringify(data.user.username))
+            setgState({...gState, token: true, user: data.user.username, error: null, admin: data.is_admin})
             setForm(blank)
             alert(`You have successfully signed in.  Welcome ${data.user.username}!`)
             console.log(data.is_admin)

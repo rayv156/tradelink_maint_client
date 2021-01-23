@@ -1,16 +1,26 @@
 import React from 'react'
 import {GlobalCtx} from "../App"
 import './Login.css'
-
+import jwt_decode from "jwt-decode"
 
 
 const Signup = ({history}) => {
     const {gState, setgState} = React.useContext(GlobalCtx)
     const {url} = gState
-
+    const isPermitted = async () => {
+        const token = await window.localStorage.getItem("token")
+        if (token){
+        const decoded_token = jwt_decode(token)
+        return decoded_token.is_admin
+        } else {
+            return false
+        }
+    }
+    console.log(isPermitted())
     const blank = {
         username: "",
-        password: ""
+        password: "",
+        is_admin: false
     }
     const [form, setForm] = React.useState(blank)
 
@@ -21,23 +31,33 @@ const Signup = ({history}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        const { username, password } = form;
+        const { username, password, is_admin } = form;
         fetch(`${url}/users`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({username, password})
+            body: JSON.stringify({username, password, is_admin})
         })
         .then(response => response.json())
         .then(data => {
             setForm(blank)
             alert("Thanks for signing up! Login to get started.")
-            history.push("/login")
+            history.push("/")
         })
 
     }
-
+const checkAdmin = () => {
+    return (<>
+    <label>Admin Permissions?</label>
+        <input
+            name="is_admin"
+            type="checkbox"
+            checked={form.is_admin}
+            onChange={() => setForm({...form, is_admin: !form.is_admin})} />
+    </>
+    )
+}
 
     return (
         <div className="form-container">
@@ -66,6 +86,9 @@ const Signup = ({history}) => {
                 placeholder="Enter your password"
                 value={form.password}
                 onChange={handleChange} />
+        </div>
+        <div className="form-group form-inline">
+        {gState.admin ? checkAdmin() : null}
         </div>
         <button
             className="btn btn-primary btn-block"

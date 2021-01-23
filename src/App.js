@@ -12,6 +12,7 @@ import NavSignedIn from './components/NavSignedIn'
 import Trucks from './components/Trucks'
 import Trailers from './components/Trailers'
 import Forklifts from './components/Forklifts'
+import jwt_decode from "jwt-decode"
 
 export const GlobalCtx = React.createContext(null)
 
@@ -27,11 +28,11 @@ function App({history}) {
   
   React.useEffect(()=>{
     const token = window.localStorage.getItem("token")
-    const admin = JSON.parse(window.localStorage.getItem("admin"))
     const user = JSON.parse(window.localStorage.getItem("user"))
-   //console.log(user)
-   if (token){
-     setgState({...gState, token: true, user: user, admin: admin})
+    //console.log(user)
+    if (token){
+     const decoded_admin = jwt_decode(token)
+     setgState({...gState, token: true, user: user, admin: decoded_admin.is_admin})
    } else {
      setgState({...gState, token: false, user: null, admin: null})
    }

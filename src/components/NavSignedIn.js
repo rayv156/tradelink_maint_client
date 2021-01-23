@@ -21,7 +21,7 @@ const NavSignedIn = ({history}) => {
     <Navbar.Brand>Maintenance Log</Navbar.Brand>
     </Nav>
     <Nav>
-      <Navbar.Text>Signed in as: {gState.user.username} </Navbar.Text>
+      <Navbar.Text>Signed in as: {gState.user} </Navbar.Text>
 
     </Nav>
     <Nav>
