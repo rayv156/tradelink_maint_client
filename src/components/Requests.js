@@ -134,6 +134,7 @@ const loaded = () => (
 return (
   <div className="notes">
     <h1>Requests</h1>
+    <a href="/requests/create"><button >New Request</button></a>
   {requests.length > 0 ? loaded() : spinner()}
   </div>
 );
