@@ -13,6 +13,7 @@ import Trucks from './components/Trucks'
 import Trailers from './components/Trailers'
 import Forklifts from './components/Forklifts'
 import Requests from './components/Requests'
+import RequestCreate from './components/RequestCreate'
 import jwt_decode from "jwt-decode"
 
 export const GlobalCtx = React.createContext(null)
@@ -24,7 +25,8 @@ function App({history}) {
     token: false, 
     user: null, 
     admin: null, 
-    error: null
+    error: null,
+    user_id: null
   })
   
   React.useEffect(()=>{
@@ -33,7 +35,7 @@ function App({history}) {
     //console.log(user)
     if (token){
      const decoded_admin = jwt_decode(token)
-     setgState({...gState, token: true, user: user, admin: decoded_admin.is_admin})
+     setgState({...gState, token: true, user: user, admin: decoded_admin.is_admin, user_id: decoded_admin.user_id})
    } else {
      setgState({...gState, token: false, user: null, admin: null})
    }
@@ -63,6 +65,7 @@ function App({history}) {
         <Route path="/trailers" exact component={gState.admin ? Trailers : NotAuthorized} />
         <Route path="/forklifts" exact component={gState.admin ? Forklifts : NotAuthorized} />
         <Route path="/requests" exact component={gState.admin ? Requests : NotAuthorized} />
+        <Route path="/requests/create" exact component={gState.admin ? RequestCreate : NotAuthorized} />
         
       </Switch>
     </div>
