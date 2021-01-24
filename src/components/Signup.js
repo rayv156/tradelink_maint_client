@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode"
 
 
 const Signup = ({history}) => {
-    const {gState, setgState} = React.useContext(GlobalCtx)
+    const {gState} = React.useContext(GlobalCtx)
     const {url} = gState
     const isPermitted = async () => {
         const token = await window.localStorage.getItem("token")
