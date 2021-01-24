@@ -1,11 +1,20 @@
 import React from 'react'
-import { Navbar, Nav} from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown} from 'react-bootstrap'
 import {GlobalCtx} from "../App"
 import "./Navigation.css"
 import transportbrand from '../Transportationlogo.png'
 
 const NavSignedIn = ({history}) => {
   const {gState, setgState} = React.useContext(GlobalCtx)
+  const dropDown = () => {
+    return (
+    <NavDropdown title="Vehicles" id="collasible-nav-dropdown">
+        <NavDropdown.Item href="/trucks">Trucks</NavDropdown.Item>
+        <NavDropdown.Item href="/trailers">Trailers</NavDropdown.Item>
+        <NavDropdown.Item href="/forklifts">Forklifts</NavDropdown.Item>
+      </NavDropdown>
+    )
+  }
     return (
 <>
 <Navbar collapseOnSelect expand="lg" variant="light" bg="light">
@@ -20,15 +29,14 @@ const NavSignedIn = ({history}) => {
     <Nav>
     <Navbar.Brand>Maintenance Log</Navbar.Brand>
     </Nav>
-    <Nav>
+    {/* <Nav>
       <Navbar.Text>Signed in as: {gState.user} </Navbar.Text>
 
-    </Nav>
+    </Nav> */}
     <Nav>
       {gState.admin ? <Nav.Link href="/adminnotes">Notes</Nav.Link> : <Nav.Link href="/notes">Notes</Nav.Link>}
-      {gState.admin ? <Nav.Link href="/trucks">Trucks</Nav.Link> : null}
-      {gState.admin ? <Nav.Link href="/trailers">Trailers</Nav.Link> : null}
-      {gState.admin ? <Nav.Link href="/forklifts">Forklifts</Nav.Link> : null}
+      {gState.admin ? <Nav.Link href="/requests">Requests</Nav.Link> : null}
+      {gState.admin ? dropDown() : null}
 
       <Nav.Link href="/" onClick={() => {
           window.localStorage.removeItem("token")

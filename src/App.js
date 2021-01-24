@@ -12,6 +12,7 @@ import NavSignedIn from './components/NavSignedIn'
 import Trucks from './components/Trucks'
 import Trailers from './components/Trailers'
 import Forklifts from './components/Forklifts'
+import Requests from './components/Requests'
 import jwt_decode from "jwt-decode"
 
 export const GlobalCtx = React.createContext(null)
@@ -61,6 +62,7 @@ function App({history}) {
         <Route path="/trucks" exact component={gState.admin ? Trucks : NotAuthorized} />
         <Route path="/trailers" exact component={gState.admin ? Trailers : NotAuthorized} />
         <Route path="/forklifts" exact component={gState.admin ? Forklifts : NotAuthorized} />
+        <Route path="/requests" exact component={gState.admin ? Requests : NotAuthorized} />
         
       </Switch>
     </div>

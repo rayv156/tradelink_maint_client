@@ -58,7 +58,9 @@ const checkAdmin = () => {
     </>
     )
 }
-
+React.useEffect(() => {
+    isPermitted()
+  }, [])
     return (
         <div className="form-container">
     
