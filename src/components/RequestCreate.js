@@ -3,7 +3,7 @@ import {GlobalCtx} from "../App"
 import "./Create.css";
 import { Redirect } from 'react-router-dom'
 
-const RequestCreate = () => {
+const RequestCreate = ({history}) => {
     const {gState, setgState} = React.useContext(GlobalCtx)
     const {url} = gState
     const blank = {
@@ -13,7 +13,7 @@ const RequestCreate = () => {
         status: ""
     }
     const [formRequest, setFormRequest] = React.useState(blank)
-    const [inputList, setInputList] = React.useState([{ repair_type: "", description: "", status: "", request_id: gState.request_id }]);
+    const [inputList, setInputList] = React.useState([{ repair_type: "", description: "", status: "", request_id: 5 }]);
 
     const handleChange = (event) => {
         setFormRequest({...formRequest, [event.target.name]: event.target.value})
@@ -34,7 +34,7 @@ const RequestCreate = () => {
      
       // handle click event of the Add button
       const handleAddClick = () => {
-        setInputList([...inputList, { repair_type: "", description: "", status: "", request_id: gState.request_id }]);
+        setInputList([...inputList, { repair_type: "", description: "", status: "", request_id: 5 }]);
       };
 
     const handleSubmit = async (event) => {
@@ -52,16 +52,18 @@ const RequestCreate = () => {
         .then((data) => {
             setgState({...gState, request_id: data.id})
         })
+        inputList.map(async (item)=> {
         await fetch(`${url}/repairs`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
                 "authorization": `bearer ${token}`
             },
-            body: JSON.stringify(inputList)
+            body: JSON.stringify(item)
         })
-        .then(response => response.json())
-        .then(<Redirect to="/requests"/>)
+    })
+        
+        history.push("/requests")
     }
 
 
