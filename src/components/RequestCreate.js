@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom'
 const RequestCreate = ({history}) => {
     const {gState, setgState} = React.useContext(GlobalCtx)
     const {url} = gState
+    let requestID = null
     const blank = {
         date: Date(),
         equipment: "",
@@ -13,7 +14,7 @@ const RequestCreate = ({history}) => {
         status: ""
     }
     const [formRequest, setFormRequest] = React.useState(blank)
-    const [inputList, setInputList] = React.useState([{ repair_type: "", description: "", status: "", request_id: 5 }]);
+    const [inputList, setInputList] = React.useState([{ repair_type: "", description: "", status: "", request_id: null }]);
 
     const handleChange = (event) => {
         setFormRequest({...formRequest, [event.target.name]: event.target.value})
@@ -51,8 +52,12 @@ const RequestCreate = ({history}) => {
         .then(response => response.json())
         .then((data) => {
             setgState({...gState, request_id: data.id})
+            requestID = data.id
         })
         inputList.map(async (item)=> {
+          
+        item.request_id = requestID
+        console.log(item)
         await fetch(`${url}/repairs`, {
             method: "post",
             headers: {

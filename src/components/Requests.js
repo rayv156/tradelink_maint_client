@@ -6,7 +6,7 @@ const Requests = ({history}) => {
 const { url } = gState
 const boolArray = []
 const [requests, setRequests]= React.useState([])
-const [isExpanded, setisExpanded] = React.useState(boolArray)
+const [isExpanded, setisExpanded] = React.useState([])
 const getRequests = async () => {
 const token = await window.localStorage.getItem("token")
   const response = await fetch(`${url}/requests`,  {
@@ -18,7 +18,12 @@ const token = await window.localStorage.getItem("token")
 })
   const data = await response.json()
   setRequests(data)
+  requests.map((request, index) => {
+    boolArray.push(false)
+  })
   setisExpanded(boolArray)
+  console.log(isExpanded)
+  
 }
 
 
@@ -95,7 +100,7 @@ const loaded = () => (
         </thead>
         <tbody>
 {requests.map((request, index)=> {
-    boolArray.push(false)
+    
     return (<>
               <tr >
             <th scope="row">{request.id}</th>
@@ -113,11 +118,12 @@ const loaded = () => (
             </td>
             <td>{request.status}</td>
             <td><button onClick={()=> {
-                boolArray[index] = !boolArray[index]
-                getRequests()
+                const test = [...isExpanded]
+                test[index] = !test[index]
+                setisExpanded(test)
+                console.log(isExpanded)
                 }}>+</button></td>
           </tr>
-          {console.log(isExpanded[index])}
             {isExpanded[index] ? showRepairs(request) : null}
           
           </>
