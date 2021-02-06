@@ -1,0 +1,6 @@
+.table-plain tbody tr,
+.table-plain tbody tr:hover,
+.table-plain tbody td {
+  background-color:transparent;
+  border:none;
+}

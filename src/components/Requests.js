@@ -1,5 +1,6 @@
 import React from 'react'
 import {GlobalCtx} from "../App"
+import "./Requests.css";
 
 const Requests = ({history}) => {
     const {gState, setgState} = React.useContext(GlobalCtx)
@@ -18,11 +19,8 @@ const token = await window.localStorage.getItem("token")
 })
   const data = await response.json()
   setRequests(data)
-  requests.map((request, index) => {
-    boolArray.push(false)
-  })
   setisExpanded(boolArray)
-  console.log(isExpanded)
+  
   
 }
 
@@ -50,10 +48,14 @@ const spinner = () => {
 const showRepairs = (request) => {
     
     return (<>
-    <div className="table-responsive" style={{margin: "auto"}} >
-        <table className="table table-hover table-light">
+    <div style={{margin: 'auto'}}>
+    <div className="row justify-content-center" style={{margin: "auto"}} >
+    <tr>
+      <td colspan="5"> 
+    <h3>Repairs</h3>
+        <table className="table table-responsive table-dark">
     <thead>
-          <tr>
+          <tr >
             <th scope="col">#</th>
             <th scope="col">Repair Type</th>
             <th scope="col">Description</th>
@@ -64,6 +66,7 @@ const showRepairs = (request) => {
         <tbody>
     
         {request.repairs.map((repair, index)=> {
+          boolArray.push(false)
             return (<>
             <tr>
             <th scope="row">{repair.id}</th>
@@ -77,6 +80,9 @@ const showRepairs = (request) => {
     }
     </tbody>
     </table>
+    </td>
+    </tr>
+    </div>
     </div>
     </>
 
@@ -84,30 +90,34 @@ const showRepairs = (request) => {
 }
 
 
-const loaded = () => (
-<div className="table-responsive" >
-        <table className="table table-hover table-dark">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date</th>
-            <th scope="col">Equipment</th>
-            <th scope="col">Odometer</th>
-            <th scope="col">Repair Reqs</th>
-            <th scope="col">Status</th>
+const loaded = () => (<>
+<div className="card" style={{margin: "10px 10px 10px 10px", fontWeight: "bold", borderRadius: '15px'}}>
+  <div className="row">
+  <div className="col">#</div>
+  <div className="col">Date</div>
+  <div className="col">Unit Number</div>
+  <div className="col">Equipment</div>
+  <div className="col">Odometer</div>
+  <div className="col">Repair Reqs</div>
+  <div className="col">Status</div>
+  <div className="col"></div>
+  
+  </div>
 
-          </tr>
-        </thead>
-        <tbody>
+</div> 
+
+  
 {requests.map((request, index)=> {
     
-    return (<>
-              <tr >
-            <th scope="row">{request.id}</th>
-            <td>{request.date}</td>
-            <td>{request.equipment}</td>
-            <td>{request.odometer}</td>
-            <td>{`(${request.repairs.length}) `}
+    return (
+    <div className="card request-card" style={{margin: "0px 10px 10px 10px", borderRadius: '15px', backgroundColor: 'rgb(249,249,250)', color: 'black'}} >
+              <div className="row" >
+            <div className="col">{request.id}</div>
+            <div className="col">{request.date}</div>
+            <div className="col">{request.unit_number}</div>
+            <div className="col">{request.equipment}</div>
+            <div className="col">{request.odometer}</div>
+            <div className="col">{`(${request.repairs.length}) `}
             {request.repairs.map((repair, index) => {
                 if (index + 1 < request.repairs.length){
                 return `${repair.repair_type}, `
@@ -115,23 +125,23 @@ const loaded = () => (
                     return `${repair.repair_type}`
                 }
             })}
-            </td>
-            <td>{request.status}</td>
-            <td><button onClick={()=> {
+            </div>
+            <div className="col">{request.status}</div>
+            <div className="col"><button className="btn btn-secondary" onClick={()=> {
                 const test = [...isExpanded]
                 test[index] = !test[index]
                 setisExpanded(test)
-                console.log(isExpanded)
-                }}>+</button></td>
-          </tr>
+                
+                }}>+</button></div>
+          </div>
+          
             {isExpanded[index] ? showRepairs(request) : null}
           
-          </>
+          </div>
 )
 })}
-</tbody>
-</table>
-</div>
+</>
+
 )
 
 
@@ -140,7 +150,7 @@ const loaded = () => (
 return (
   <div className="notes">
     <h1>Requests</h1>
-    <a href="/requests/create"><button >New Request</button></a>
+    <a href="/requests/create"><button className="btn btn-primary">New Request</button></a>
   {requests.length > 0 ? loaded() : spinner()}
   </div>
 );

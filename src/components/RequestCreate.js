@@ -9,12 +9,13 @@ const RequestCreate = ({history}) => {
     let requestID = null
     const blank = {
         date: Date(),
+        unit_number: 0,
         equipment: "",
         odometer: 0,
         status: ""
     }
     const [formRequest, setFormRequest] = React.useState(blank)
-    const [inputList, setInputList] = React.useState([{ repair_type: "", description: "", status: "", request_id: null }]);
+    const [inputList, setInputList] = React.useState([{ repair_type: "", description: "", status: "", request_id: null}]);
 
     const handleChange = (event) => {
         setFormRequest({...formRequest, [event.target.name]: event.target.value})
@@ -35,7 +36,7 @@ const RequestCreate = ({history}) => {
      
       // handle click event of the Add button
       const handleAddClick = () => {
-        setInputList([...inputList, { repair_type: "", description: "", status: "", request_id: 5 }]);
+        setInputList([...inputList, { repair_type: "", description: "", status: "", request_id: null}]);
       };
 
     const handleSubmit = async (event) => {
@@ -57,6 +58,7 @@ const RequestCreate = ({history}) => {
         inputList.map(async (item)=> {
           
         item.request_id = requestID
+        item.unit_number = Number(item.unit_number)
         console.log(item)
         await fetch(`${url}/repairs`, {
             method: "post",
@@ -89,7 +91,18 @@ return (
                 onChange={handleChange} />
             
         </div>
-
+        <div className="form-group form-inline">
+        <label>Unit Number: </label>
+        <input
+                id="unit_number"
+                type="number"
+                name='unit_number'
+                className='form-control'
+                
+                value={formRequest.unit_number}
+                onChange={handleChange} />
+            
+        </div>
         <div className="form-group form-inline">
         <label>Equipment: </label>
             <input id="equipment"
