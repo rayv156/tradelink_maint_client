@@ -79,6 +79,7 @@ const loaded = () => (
 return (
   <div className="notes">
     <h1>Trailers</h1>
+    <a href="/trailers/create"><button className="btn btn-primary">New Trailer</button></a>
   {trailers.length > 0 ? loaded() : spinner()}
   </div>
 );

@@ -1,6 +1,17 @@
-.table-plain tbody tr,
-.table-plain tbody tr:hover,
-.table-plain tbody td {
-  background-color:transparent;
-  border:none;
+
+@media only screen and (max-width: 575px){
+    .row {
+    width: 300px;
+    margin: auto;
+    align-content: center;
+    border: none;
+    
 }
+.col-sm {
+    border: none;
+    border-bottom: solid gray;
+}
+.highlight {
+    width: 300px;
+}
+    }
