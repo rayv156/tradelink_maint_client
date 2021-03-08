@@ -6,7 +6,21 @@ const Trucks = ({history}) => {
 const {gState, setgState} = React.useContext(GlobalCtx)
 const { url } = gState
 const [trucks, setTrucks]= React.useState([])
+const blank = {
+  truck_number: 0,
+  year: 2020,
+  make: "",
+  model: "",
+  vin: "",
+  plates: "",
+  inspection: "",
+  insurance_exp: "",
+  axles: 0,
+  tires: "",
+  ownership: "",
+  status: ""
 
+}
 const getTrucks = async () => {
 const token = await window.localStorage.getItem("token")
   const response = await fetch(`${url}/trucks`,  {
@@ -57,7 +71,8 @@ const loaded = () => (
         <tbody>
 {trucks.map((truck, index)=> {
     return (<>
-              <tr onClick={()=>{history.push('/adminnotes')}}>
+              <tr >
+    <Link to={{pathname: "/trucks/create", selectedTruck: truck }}>
             <th scope="row">{truck.truck_number}</th>
             <td>{truck.year}</td>
             <td>{truck.make}</td>
@@ -66,6 +81,7 @@ const loaded = () => (
             <td>{truck.ownership}</td>
             <td>{truck.status}</td>
           
+          </Link>
           </tr>
           
           </>
@@ -80,7 +96,7 @@ const loaded = () => (
 return (
   <div className="notes">
     <h1>Trucks</h1>
-    <a href="/trucks/create"><button className="btn btn-primary">New Truck</button></a>
+    <Link to={{pathname: "/trucks/create", selectedTruck: blank }}><button className="btn btn-primary">New Truck</button></Link>
   {trucks.length > 0 ? loaded() : spinner()}
   </div>
 );

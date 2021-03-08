@@ -3,25 +3,27 @@ import {GlobalCtx} from "../App"
 import "./Create.css";
 import { Redirect } from 'react-router-dom'
 
-const TrucksCreate = ({history}) => {
+const TrucksCreate = ({history, location}) => {
     const {gState, setgState} = React.useContext(GlobalCtx)
+    const selectedTruck = location.selectedTruck
+    console.log(selectedTruck)
     const {url} = gState
-    const blank = {
-        truck_number: 0,
-        year: 2020,
-        make: "",
-        model: "",
-        vin: "",
-        plates: "",
-        inspection: "",
-        insurance_exp: "",
-        axles: 0,
-        tires: "",
-        ownership: "",
-        status: ""
+    // const blank = {
+    //     truck_number: 0,
+    //     year: 2020,
+    //     make: "",
+    //     model: "",
+    //     vin: "",
+    //     plates: "",
+    //     inspection: "",
+    //     insurance_exp: "",
+    //     axles: 0,
+    //     tires: "",
+    //     ownership: "",
+    //     status: ""
 
-    }
-    const [formRequest, setFormRequest] = React.useState(blank)
+    // }
+    const [formRequest, setFormRequest] = React.useState(selectedTruck)
     const [inputList, setInputList] = React.useState([{ repair_type: "", description: "", status: "", request_id: null}]);
 
     const handleChange = (event) => {
