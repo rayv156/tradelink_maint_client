@@ -54,7 +54,7 @@ return (
         <h1>Create a Trailer</h1>
 
         <div className="form-group form-inline">
-        <label>Trailer Number: </label>
+        <label>Trailer #: </label>
         <input
                 id="trailer_number"
                 type="number"
@@ -117,9 +117,9 @@ return (
         </div>
         <div className="form-group form-inline">
         <label>Suspension: </label>
-            <input id="supension"
+            <input id="suspension"
                 type="text"
-                name='supension'
+                name='suspension'
                 className='form-control'
                 placeholder="Suspension"
                 value={formRequest.suspension}
@@ -146,7 +146,7 @@ return (
                 onChange={handleChange} />
         </div>
         <div className="form-group form-inline">
-        <label>Insurance Exp:</label>
+        <label>Insur Exp:</label>
             <input id="insurance_exp"
                 type="text"
                 name='insurance_exp'
