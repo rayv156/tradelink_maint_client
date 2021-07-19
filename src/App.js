@@ -14,6 +14,7 @@ import Trailers from './components/Trailers'
 import Forklifts from './components/Forklifts'
 import Requests from './components/Requests'
 import RequestCreate from './components/RequestCreate'
+import RequestShow from './components/RequestShow'
 import TrailersCreate from './components/TrailersCreate'
 import TrucksCreate from './components/TrucksCreate'
 import ForkliftsCreate from './components/ForkliftsCreate'
@@ -72,6 +73,7 @@ function App({history}) {
         <Route path="/forklifts/create" exact component={gState.admin ? ForkliftsCreate : NotAuthorized} />
         <Route path="/requests" exact component={gState.admin ? Requests : NotAuthorized} />
         <Route path="/requests/create" exact component={gState.admin ? RequestCreate : NotAuthorized} />
+        <Route path="/requests/:id" exact component={gState.admin ? RequestShow : NotAuthorized} />
       </Switch>
     </div>
     </GlobalCtx.Provider>

@@ -42,3 +42,6 @@
     border-radius: 0px;
     margin: 20px 0px;
 }
+.form-group {
+    justify-content: space-evenly;
+}

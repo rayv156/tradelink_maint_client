@@ -2,6 +2,8 @@ import React from 'react'
 import {GlobalCtx} from "../App"
 import "./Login.css";
 import { Redirect } from 'react-router-dom'
+import { PersonOutline } from 'react-ionicons'
+import { LockClosedOutline } from 'react-ionicons'
 
 const Login = ({ history }) => {
     const {gState, setgState} = React.useContext(GlobalCtx)
@@ -49,8 +51,11 @@ const Login = ({ history }) => {
         <div className="form-container">
     <form className="form" onSubmit={handleSubmit}>
         <h1>Welcome</h1>
-        <div className="form-group form-inline">
-        <label><ion-icon name="person-outline"></ion-icon></label>
+        <div className="form-group form-inline" style={{justifyContent: "space-evenly"}}>
+        <label><PersonOutline 
+                    color={'#00000'} 
+                    height="30px"
+                    width="30px"/></label>
         <input
                 id="username"
                 type="text"
@@ -62,8 +67,12 @@ const Login = ({ history }) => {
             
         </div>
 
-        <div className="form-group form-inline">
-        <label><ion-icon name="lock-closed-outline"></ion-icon></label>
+        <div className="form-group form-inline" style={{justifyContent: "space-evenly"}}>
+        <label><LockClosedOutline
+                color={'#00000'} 
+                height="30px"
+                width="30px"
+/></label>
             <input id="password"
                 type="password"
                 name='password'

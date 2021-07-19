@@ -1,11 +1,13 @@
+.btn {
+    margin: 10px;
+}
+
 
 @media only screen and (max-width: 575px){
     .row {
-    width: 300px;
-    margin: auto;
-    align-content: center;
+    width: 100%;
+    margin: 0px;
     border: none;
-    
 }
 .col-sm {
     border: none;
@@ -13,5 +15,16 @@
 }
 .highlight {
     width: 300px;
+}
+.list-group {
+    width: 200%;
+    
+}
+
+#row-container {
+    overflow-x: auto;
+}
+.card {
+    width: 350px;
 }
     }

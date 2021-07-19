@@ -2,6 +2,8 @@ import React from 'react'
 import {GlobalCtx} from "../App"
 import './Login.css'
 import jwt_decode from "jwt-decode"
+import { PersonOutline } from 'react-ionicons'
+import { LockClosedOutline } from 'react-ionicons'
 
 
 const Signup = ({history}) => {
@@ -66,8 +68,11 @@ React.useEffect(() => {
     
     <form className="form" onSubmit={handleSubmit}>
         <h1>Signup</h1>
-        <div className="form-group form-inline">
-        <label><ion-icon name="person-outline"></ion-icon></label>
+        <div className="form-group form-inline" style={{justifyContent: "space-evenly"}}>
+        <label><PersonOutline 
+                    color={'#00000'} 
+                    height="30px"
+                    width="30px"/></label>
             <input
                 id="username"
                 type="text"
@@ -79,8 +84,12 @@ React.useEffect(() => {
             
         </div>
 
-        <div className="form-group form-inline">
-        <label><ion-icon name="lock-closed-outline"></ion-icon></label>
+        <div className="form-group form-inline" style={{justifyContent: "space-evenly"}}>
+        <label><LockClosedOutline
+                color={'#00000'} 
+                height="30px"
+                width="30px"
+/></label>
             <input id="password"
                 type="password"
                 name='password'

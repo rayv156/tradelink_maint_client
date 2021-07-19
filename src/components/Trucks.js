@@ -55,8 +55,8 @@ const spinner = () => {
 }
 
 const loaded = () => (
-<div className="table-responsive" >
-        <table class="table table-hover table-dark">
+<div id="row-container">
+        {/* <table class="table table-hover table-dark">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -68,27 +68,43 @@ const loaded = () => (
             <th scope="col">Status</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody> */}
+        <ul className="list-group">
+        <li className="list-group-item" >
+              <div className="row">
+              <div className="col">#</div>
+            <div className="col">Year</div>
+            <div className="col">Make</div>
+            <div className="col">Model</div>
+            <div className="col">Vin</div>
+            <div className="col">Ownership</div>
+            <div className="col">Status</div>
+            </div>
+              </li>
 {trucks.map((truck, index)=> {
     return (<>
-              <tr >
-    <Link to={{pathname: "/trucks/create", selectedTruck: truck }}>
-            <th scope="row">{truck.truck_number}</th>
-            <td>{truck.year}</td>
-            <td>{truck.make}</td>
-            <td>{truck.model}</td>
-            <td>{truck.vin}</td>
-            <td>{truck.ownership}</td>
-            <td>{truck.status}</td>
+    <Link to={{pathname: "/trucks/create", selectedTruck: truck }} style={{textDecoration: 'none'}}>
+            <li className="list-group-item" >
+              <div className="row">
+              <div className="col">{truck.truck_number}</div>
+            <div className="col">{truck.year}</div>
+            <div className="col">{truck.make}</div>
+            <div className="col">{truck.model}</div>
+            <div className="col">{truck.vin}</div>
+            <div className="col">{truck.ownership}</div>
+            <div className="col">{truck.status}</div>
+            </div>
+              </li>
           
+        
           </Link>
-          </tr>
           
           </>
 )
 })}
-</tbody>
-</table>
+</ul>
+{/* </tbody> */}
+{/* </table> */}
 </div>
 )
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import { GlobalCtx } from "../App";
+import { Link } from 'react-router-dom'
 import "./Requests.css";
 
 const Requests = ({ history }) => {
-  const { gState, setgState } = React.useContext(GlobalCtx)
+  const { gState } = React.useContext(GlobalCtx)
   const { url } = gState
   const boolArray = []
   const [requests, setRequests] = React.useState([])
@@ -48,41 +49,32 @@ const Requests = ({ history }) => {
   const showRepairs = (request) => {
 
     return (<>
-      <div style={{ margin: 'auto' }}>
-        <div className="row justify-content-center" style={{ margin: "auto" }} >
-          <tr>
-            <td colspan="5">
-              <h3>Repairs</h3>
-              <table className="table table-responsive table-dark">
-                <thead>
-                  <tr >
-                    <th scope="col">#</th>
-                    <th scope="col">Repair Type</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Status</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-
+      <div className="row">
+        
+                
                   {request.repairs.map((repair, index) => {
                     boolArray.push(false)
                     return (<>
-                      <tr>
-                        <th scope="row">{repair.id}</th>
-                        <td>{repair.repair_type}</td>
-                        <td >{repair.description}</td>
-                        <td >{repair.status}</td>
-                      </tr>
+                 <div className="col-sm-3">   
+         <div className="card text-black bg-secondary mb-3" >
+           <img className="card-img-top" src="https://dss.fosterwebmarketing.com/upload/dhclaw.com/39504259%20totaled%20car.jpg" alt="Card image cap" />
+           <div className="card-body">
+                  <ul className="list-group-flush" style={{padding: 0}}>
+                        <li className="list-group-item">Repair #: {repair.id}</li>
+                        <li className="list-group-item">Repair Type: {repair.repair_type}</li>
+                        <li className="list-group-item">Description: {repair.description}</li>
+                        <li className="list-group-item">Status: {repair.status}</li>
+                      
+                </ul>
+                </div>
+               
+          </div>
+          </div>  
                     </>
                     )
                   })
-                  }
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </div>
+                }
+       
       </div>
     </>
 
@@ -91,31 +83,33 @@ const Requests = ({ history }) => {
 
 
   const loaded = () => (
-   <div className="table-responsive" >
-        <table className="table table-hover table-dark">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date</th>
-            <th scope="col">Equipment</th>
-            <th scope="col">Odometer</th>
-            <th scope="col">Repair Reqs</th>
-            <th scope="col">Status</th>
-      </tr>
-
-    </thead>
-    <tbody>
+   <div id="row-container" >
+        
+          <ul className="list-group">
+            <li className="list-group-item">
+              <div className="row">
+            <div className="col">#</div>
+            <div className="col">Date</div>
+            <div className="col">Equipment</div>
+            <div className="col">Odometer</div>
+            <div className="col">Repair Reqs</div>
+            <div className="col">Status</div>
+            <div className="col"></div>
+            <div className="col"></div>
+            </div>
+            </li>
 
 
     {requests.map((request, index) => {
-
+      
       return (<>
-        <tr >
-      <th scope="row">{request.id}</th>
-      <td>{request.date}</td>
-      <td>{request.equipment}</td>
-      <td>{request.odometer}</td>
-      <td>{`(${request.repairs.length}) `}
+      <li className="list-group-item">
+        <div className="row">
+      <div className="col">{request.id}</div>
+      <div className="col">{request.date}</div>
+      <div className="col">{request.equipment}</div>
+      <div className="col">{request.odometer}</div>
+      <div className="col">{`(${request.repairs.length}) `}
               {request.repairs.map((repair, index) => {
                 if (index + 1 < request.repairs.length) {
                   return `${repair.repair_type}, `
@@ -123,23 +117,25 @@ const Requests = ({ history }) => {
                   return `${repair.repair_type}`
                 }
               })}
-            </td>
-            <td>{request.status}</td>
-            <td><button className="btn btn-secondary" onClick={() => {
+            </div>
+            <div className="col">{request.status}</div>
+            <div className="col"><Link to={{pathname: `/requests/${request.id}`, state: {request: request}}} request={request}>Edit
+            </Link></div>
+            <div className="col"><button className="btn btn-secondary" style={{width: '40px', margin: -20, marginLeft: -80}} onClick={() => {
               const test = [...isExpanded]
               test[index] = !test[index]
               setisExpanded(test)
-
-            }}>{isExpanded[index] ? "-" : "+"}</button></td>
+              
+            }}>{isExpanded[index] ? "-" : "+"}</button></div>
           
-          </tr>
+          </div>
+          </li>
           {isExpanded[index] ? showRepairs(request) : null}
-
         </>
       )
     })}
-  </tbody>
-  </table>
+    </ul>
+  
   </div>
 
   )
